@@ -1,0 +1,19 @@
+<!-- item_termin.xml -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="#ECECEC">
+
+    <TextView
+        android:id="@+id/textViewVrijeme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="#000000"
+        android:padding="8dp"/>
+
+    <!-- Dodajte dodatne elemente unutar okvira prema potrebi (npr. gumb za rezervaciju) -->
+
+</FrameLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- to toggle the open close button of the navigation drawer -->
+    <string name="prijava"> LOGIN</string>
+
+
+    <string name="admin">ADMIN SETTINGS </string>
+    <string name="dodajzaposlenika">DODAJ ZAPOSLENIKA </string>
+    <string name="dodajuslugu">DODAJ USLUGU </string>
+
+
+    <string name="button_description">Reserve Button</string>
+
+    <string name="app_name">BARBER</string>
+    <string name="rezerv">RESERVE</string>
+    <string name="ime_text"> HAIR SALON BORIS </string>
+    <string name="onama"> About us </string>
+    <string name="tkosmomi"> Who are we? </string>
+    <string name="kontakt"> Contact us </string>
+    <string name="galerija"> Gallery  </string>
+    <string name="nasiradovi"> Our works
+  </string>
+
+    <string name="dugacak_tekst_opis">
+   is a top barbershop located in the very center of Virovitica.
+    Our salon provides premium services with highly professional staff, modern equipment and an unforgettable experience.
+    We provide you with top styling for every occasion, whether it¨s everyday challenges, business interviews, weddings or any other special occasion.
+    Our experienced barbers are dedicated to providing services according to your wishes, using a special technique of geometric haircuts.
+    Trust us and leave it to our hairdressing experts to provide you with a look that will meet your expectations.
+    </string>
+
+
+    <string name="odaberijezik"> Choose language  </string>
+
+
+
+
+
+
+
+
+
+
+
+</resources>

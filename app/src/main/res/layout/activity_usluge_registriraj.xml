@@ -1,0 +1,120 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack"
+    android:fitsSystemWindows="true"
+    tools:context=".RadniciActivity">
+
+    <ImageView
+        android:id="@+id/imageViewBackground"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pocetna"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <EditText
+        android:id="@+id/editTextImeUsluge"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:gravity="center"
+        android:hint="unesite ime usluge"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewBackground" />
+
+    <EditText
+        android:id="@+id/editTextCijenaUsluge"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:gravity="center"
+        android:hint="unesite cijenu usluge"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextImeUsluge" />
+
+
+    <EditText
+        android:id="@+id/editTextTrajanjeUsluge"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:gravity="center"
+        android:hint="unesite trajanje usluge"
+        android:inputType="number"
+        android:maxLength="2"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextCijenaUsluge" />
+
+    <ImageView
+        android:id="@+id/imagePreview"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="208dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTrajanjeUsluge"
+        app:layout_constraintVertical_bias="0.237"
+        tools:srcCompat="@drawable/barber1"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/btnCapture"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+
+
+        android:onClick="captureImage"
+        android:text="KORISTI KAMERU ZA SLIKU"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagePreview" />
+
+    <Button
+        android:id="@+id/buttonChooseImage"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="128dp"
+        android:onClick="chooseImage"
+        android:text="Odaberi sliku iz galerije"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCapture"
+        app:layout_constraintVertical_bias="0.126" />
+
+    <Button
+        android:id="@+id/buttonDodajRadnika"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="148dp"
+        android:background="@drawable/rounded_button"
+        android:text="Registriraj uslugu"
+        app:layout_constraintEnd_toEndOf="@+id/buttonChooseImage"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonChooseImage" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

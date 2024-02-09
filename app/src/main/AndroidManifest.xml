@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.BARBER"
+        tools:targetApi="31">
+        <activity
+            android:name=".ListaRezerviranihUslugaActivity"
+            android:exported="false"
+            android:label="@string/title_activity_lista_rezerviranih_usluga"
+            android:theme="@style/Theme.BARBER" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_main2" />
+
+        <activity
+            android:name=".ListaRezerviranihUslugaActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_lista_rezerviranih_usluga"
+            android:theme="@style/Theme.BARBER" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAegJ3G-TSa5RvfrLKL37iLhKiwvc3aPp0" />
+
+        <activity
+            android:name=".RadniciActivity"
+            android:exported="false"
+            android:label="@string/title_activity_usluge"
+            android:theme="@style/Theme.BARBER" />
+
+        <activity
+            android:name=".RadniciActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_usluge"
+            android:theme="@style/Theme.BARBER" />
+        <activity android:name=".FrizerskeUslugeActivity">
+
+            <!-- Add any intent filters if needed -->
+        </activity>
+        <activity android:name=".VrijemeDatumUslugeActivity" />
+        <activity
+            android:name=".LanguageActivity"
+            android:exported="false" />
+        <activity android:name=".PregledOdabranihUslugaActivity">
+
+
+        </activity>
+        <activity android:name=".PostavkeAplikacijeActivity">
+
+
+        </activity>
+
+        <activity android:name=".RadniciRegisterActivity" />
+        <activity android:name=".ProfilKorisnikaActivity" />
+        <activity android:name=".BrisanjeUslugaActivity" />
+        <activity android:name=".BrisanjeRadnikaActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".UslugaRegisterActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

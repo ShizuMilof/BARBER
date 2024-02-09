@@ -1,0 +1,88 @@
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageViewBackground"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pocetna" />
+
+        </FrameLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="684dp"
+            android:background="#000000">
+
+            <EditText
+                android:id="@+id/editTextEmailReg2"
+                android:layout_width="240dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="292dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:gravity="center"
+                android:hint="Unesite e-mail"
+                android:inputType="textEmailAddress"
+                android:textColor="#FFFFFF" />
+
+            <EditText
+                android:id="@+id/editTextPasswordReg2"
+                android:layout_width="240dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/editTextEmailReg2"
+                android:layout_alignEnd="@+id/editTextEmailReg2"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="2dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:gravity="center"
+                android:hint="Unesite lozinku"
+                android:inputType="textPassword"
+                android:textColor="#FFFFFF" />
+
+            <EditText
+                android:id="@+id/editTextUsernameReg2"
+                android:layout_width="240dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/editTextPasswordReg2"
+                android:layout_alignEnd="@+id/editTextPasswordReg2"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="0dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:gravity="center"
+                android:hint="Unesite korisničko ime i prezime"
+                android:inputType="text"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/buttonRegister2"
+                android:layout_width="240dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/editTextUsernameReg2"
+                android:layout_alignEnd="@+id/editTextUsernameReg2"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="-2dp"
+                android:background="@drawable/rounded_button"
+                android:text="Registriraj se" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

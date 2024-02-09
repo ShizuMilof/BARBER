@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Bela pozadina -->
+    <path
+        android:fillColor="@color/colorWhite"
+        android:pathData="M0,0h108v108h-108z" />
+
+    <!-- Tekst "BARBER" -->
+    <text
+        android:text="BARBER"
+        android:gravity="center"
+        android:textSize="40dp"
+        android:textColor="#000000"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="50dp"/>
+</vector>

@@ -1,0 +1,88 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack"
+    android:fitsSystemWindows="true"
+    tools:context=".RadniciActivity">
+
+    <ImageView
+        android:id="@+id/imageViewBackground"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pocetna"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="ODABERITE DATUM I TERMIN ZA KOJE ŽELITE PROVJERITI DOSTUPNOST "
+        android:textColor="@color/colorWhite"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBackground" />
+
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="347dp"
+        android:layout_height="435dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="27dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/textViewRecyclerView"
+        android:layout_width="548dp"
+        android:layout_height="39dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="79dp"
+        android:text="PRITISNITE NA DATUM KAKO BISTE VIDJELI SLOBODNE TERMINE"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.632"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="548dp"
+        android:layout_height="392dp"
+        android:layout_below="@id/datePicker"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRecyclerView"
+        app:layout_constraintVertical_bias="0.594"
+        android:timePickerMode="spinner"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

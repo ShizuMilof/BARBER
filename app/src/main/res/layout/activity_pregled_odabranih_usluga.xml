@@ -1,0 +1,147 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:fitsSystemWindows="true"
+    tools:context=".RadniciActivity">
+
+
+    <ImageView
+        android:id="@+id/imageViewBackground"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="24dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pocetna"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_border"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="FRIZER"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBackground"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/imeTextView"
+        android:layout_width="500dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/custom_border1"
+        android:text="Ime: "
+        android:textColor="@android:color/white"
+        android:textSize="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.64"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/custom_border"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="USLUGA"
+
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/imeTextView"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/imeUslugeTextView"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_border1"
+        android:text="Ime usluge: "
+        android:textColor="@android:color/white"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/cijenaUslugeTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/cijenaUslugeTextView"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_border1"
+        android:text="Cijena usluge: "
+        android:textColor="@android:color/white"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/trajanjeUslugeTextView"
+        app:layout_constraintEnd_toEndOf="@+id/imeUslugeTextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imeUslugeTextView" />
+
+    <TextView
+        android:id="@+id/trajanjeUslugeTextView"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_border1"
+        android:text="Trajanje usluge: "
+        android:textColor="@android:color/white"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="@+id/cijenaUslugeTextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cijenaUslugeTextView" />
+
+    <ImageView
+        android:id="@+id/slikaImageView"
+        android:layout_width="155dp"
+        android:layout_height="146dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/avatar"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toEndOf="@+id/cijenaUslugeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="764dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="28dp"
+        android:text="POTVRDI"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trajanjeUslugeTextView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

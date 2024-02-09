@@ -1,0 +1,528 @@
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        android:orientation="vertical">
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Gornja pozadinska slika -->
+            <ImageView
+                android:id="@+id/imageViewBackground"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pocetna" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/button"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/jezik"
+                android:contentDescription="@string/button_description"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="40dp"
+                android:background="@null"
+                android:scaleType="centerInside" />
+
+            <!-- Other views go here -->
+
+        </FrameLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="20dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <Button
+                    android:id="@+id/admin"
+                    android:layout_width="220dp"
+                    android:layout_height="50dp"
+                    android:background="@android:color/transparent"
+                    android:text="@string/admin"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+
+
+                <Button
+                    android:id="@+id/prijava"
+                    android:layout_width="220dp"
+                    android:layout_height="50dp"
+                    android:background="@android:color/transparent"
+                    android:text="@string/prijava"
+                    android:textColor="#000000"
+                    android:textStyle="bold"/>
+
+
+
+
+                <Button
+                    android:id="@+id/rezervirajButton"
+                    android:layout_width="220dp"
+                    android:layout_height="50dp"
+                    android:enabled="false"
+                    android:background="@android:color/transparent"
+                    android:text="@string/rezerv"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/onama"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:layout_marginTop="-19sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tkosmomi"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/ime_text"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textColor="@color/colorWhite"
+            android:autoLink="web"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideOverlay"
+            android:gravity="center"
+            android:layout_marginTop="-30dp"
+            android:text="@string/dugacak_tekst_opis" />
+
+        <!-- Tekst kontaktirajte nas-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/kontakt"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:background="@android:color/black" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="phone"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="+385 91 569 3790"
+            android:textColor="@color/colorWhite"
+            android:textSize="19sp"
+            android:textStyle="bold"
+
+            />
+
+        <ImageView
+            android:layout_marginTop="-15dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/mob"
+            android:layout_marginBottom="40px"
+
+            android:contentDescription="telefon Icon" />
+
+        <!-- Instagram TextView -->
+
+        <!-- insta slika -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="cikormartin"
+            android:textColor="@color/colorWhite"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="-15dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40px"
+            android:src="@drawable/instagram"
+            android:contentDescription="insta Icon" />
+
+
+
+        <!-- Facebook TextView -->
+        <TextView
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Martin Čikor"
+            android:textColor="@color/colorWhite"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/facebook"
+            android:layout_marginTop="-15dp"
+
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/galerija"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:layout_marginTop="35dp"
+
+            android:background="@android:color/black" />
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nasiradovi"
+            android:layout_marginTop="-15dp"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:background="@android:color/black" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/barber1" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:src="@drawable/barber2"
+                android:scaleType="centerCrop"/>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/barber3"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/barber4"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="10dp"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Posjeti nas"
+            android:layout_marginTop="-15dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pronađi nas već danas"
+            android:layout_marginTop="-15dp"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:id="@+id/otherView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Other View"
+            android:layout_marginTop="5dp"
+          />
+
+
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="800dp"
+            android:layout_height="500dp"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_below="@id/otherView"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            app:cameraTargetLat="37.7749"
+        app:cameraTargetLng="-122.4194"
+        app:cameraZoom="15"
+        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Radno vrijeme "
+            android:layout_marginTop="-15dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kada smo dostupni? "
+            android:layout_marginTop="-15dp"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:background="@android:color/black" />
+
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="76dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@id/map"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="PONEDJELJAK\n08:00 - 19:00"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="UTORAK\n08:00 - 19:00"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="SRIJEDA\n08:00 - 19:00"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="ČETVRTAK\n08:00 - 19:00"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="PETAK\n08:00 - 19:00"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="SUBOTA\n10:00 - 13:00"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+
+                <Button
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button_black"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="NEDJELJA\n Ne radimo"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+        </HorizontalScrollView>
+
+
+        <LinearLayout
+            android:layout_width="492dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="35dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/profilButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_button_black"
+                android:gravity="center"
+                android:text="MOJ PROFIL"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/rounded_button_black"
+                android:text="ODJAVI SE"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/terminiButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_button_black"
+                android:text="MOJI TERMINI "
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/terminifrizerButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_button_black"
+                android:text="FRIZERSKI TERMINI "
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/PostavkeButton"
+            android:layout_width="760dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_button_black"
+            android:gravity="center"
+            android:text="POSTAVKE APLIKACIJE"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
+

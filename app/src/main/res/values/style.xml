@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <style name="AppTheme.Widget.TimePicker" parent="Widget.AppCompat.TimePicker">
+        <!-- Customize TimePicker attributes as needed -->
+        <item name="android:numbersTextColor">@color/your_text_color</item>
+        <item name="android:numbersBackgroundColor">@color/your_background_color</item>
+        <item name="android:numbersSelectorColor">@color/your_selector_color</item>
+    </style>
+
+
+    </resources>
+
+
+
+
+

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "813594613032",
+    "firebase_url": "https://barber2-4f33c-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "barber2-4f33c",
+    "storage_bucket": "barber2-4f33c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813594613032:android:ec9fe03e92ce7022cc2c1d",
+        "android_client_info": {
+          "package_name": "com.example.barber"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqWdLYTiB6yP9umGxUwcUrdSIOWb8GX4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

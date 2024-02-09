@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- to toggle the open close button of the navigation drawer -->
+    <string name="prijava"> LOGUN</string>
+
+    <string name="admin">ADMIN EINSTELLUNGEN  </string>
+    <string name="dodajzaposlenika">DODAJ ZAPOSLENIKA </string>
+    <string name="dodajuslugu">DODAJ USLUGU </string>
+
+
+    <string name="button_description">Reserve Button</string>
+
+    <string name="app_name">BARBER</string>
+    <string name="rezerv">RESERVIEREN</string>
+    <string name="ime_text">FRISÖRSALON BORIS</string>
+    <string name="onama">Über uns</string>
+    <string name="tkosmomi">Wer sind wir?</string>
+    <string name="kontakt">Kontaktieren Sie uns</string>
+    <string name="galerija">Galerie</string>
+    <string name="nasiradovi">Unsere Arbeiten</string>
+
+    <string name="dugacak_tekst_opis">
+  ist ein erstklassiger Friseursalon im Zentrum von Virovitica.
+  Unser Salon bietet erstklassige Dienstleistungen mit hochprofessionellem Personal, moderner Ausstattung und einer unvergesslichen Erfahrung.
+  Wir bieten Ihnen ein erstklassiges Styling für jeden Anlass, sei es für den Alltag, geschäftliche Vorstellungsgespräche, Hochzeiten oder jeden anderen besonderen Anlass.
+  Unsere erfahrenen Friseure sind darauf spezialisiert, Dienstleistungen nach Ihren Wünschen zu erbringen und dabei eine besondere Technik des geometrischen Haarschnitts zu verwenden.
+  Vertrauen Sie uns und überlassen Sie es unseren Haarstyling-Experten, Ihnen einen Look zu verleihen, der Ihre Erwartungen erfüllt.
+</string>
+    <string name="odaberijezik"> SPRACHE WÄHLEN</string>
+
+
+
+
+</resources>
