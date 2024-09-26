@@ -41,7 +41,7 @@
         android:background="@drawable/rounded_edittext_background"
         android:gravity="center"
         android:hint="unesite cijenu usluge"
-        android:inputType="text"
+        android:inputType="number"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

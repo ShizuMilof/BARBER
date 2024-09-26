@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/frizerTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Hairdresser"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/totalAppointmentsTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Total"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/completedAppointmentsTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Completed"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/canceledAppointmentsTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Canceled"
+            android:textColor="@color/black" />
+    </TableRow>
+
+</TableLayout>

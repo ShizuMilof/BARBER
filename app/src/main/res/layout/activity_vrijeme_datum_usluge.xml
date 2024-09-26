@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
     android:fitsSystemWindows="true"
-    tools:context=".RadniciActivity">
+    tools:context=".VrijemeDatumUslugeActivity">
 
     <ImageView
         android:id="@+id/imageViewBackground"
@@ -17,72 +17,138 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- TextView elementi za radno vrijeme -->
+
+
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:id="@+id/textViewMorningHours0"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="14dp"
         android:gravity="center"
-        android:padding="16dp"
-        android:text="ODABERITE DATUM I TERMIN ZA KOJE ŽELITE PROVJERITI DOSTUPNOST "
+        android:padding="8dp"
+        android:text="RADNO VRIJEME FRIZERSKOG SALONA"
         android:textColor="@color/colorWhite"
-        android:textSize="19sp"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textViewMorningHours"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBackground"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textViewMorningHours"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="UJUTRO: 08:00 - 11:00"
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewBackground" />
 
-
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:layout_width="347dp"
-        android:layout_height="435dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="27dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/textViewAfternoonHours"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="PRIJEPODNE: 11:00 - 13:00"
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
-
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/textViewMorningHours" />
 
     <TextView
-        android:id="@+id/textViewRecyclerView"
-        android:layout_width="548dp"
-        android:layout_height="39dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="79dp"
-        android:text="PRITISNITE NA DATUM KAKO BISTE VIDJELI SLOBODNE TERMINE"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.632"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
-
-    <TimePicker
-        android:id="@+id/timePicker"
-        android:layout_width="548dp"
-        android:layout_height="392dp"
-        android:layout_below="@id/datePicker"
-        android:layout_marginStart="79dp"
+        android:id="@+id/textViewEveningHours"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="79dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="TIJEKOM DANA: 13:00 - 16:00"
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRecyclerView"
-        app:layout_constraintVertical_bias="0.594"
-        android:timePickerMode="spinner"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewAfternoonHours" />
 
+    <TextView
+        android:id="@+id/textViewDailyHours"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="POSLIJEPODNE: 16:00 - 19:00"
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEveningHours" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="ODABERITE DATUME U KOJEM RASPONU ŽELITE TERMIN"
+        android:textColor="@color/colorWhite"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDailyHours" />
+
+    <Button
+        android:id="@+id/datePickerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="showDatePicker"
+        android:text="ODABERITE DATUME"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Spinner
+        android:id="@+id/timeSlotSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        android:text="PREGLEDAJ PODATKE O TERMINU"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeSlotSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

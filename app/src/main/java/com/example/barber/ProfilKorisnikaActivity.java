@@ -6,8 +6,11 @@ import android.text.InputType;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 
 public class ProfilKorisnikaActivity extends AppCompatActivity {
 
@@ -20,24 +23,37 @@ public class ProfilKorisnikaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profil_korisnika);
 
         Intent intent = getIntent();
-        if (intent.hasExtra("username")) {
-            String loggedInUsername = intent.getStringExtra("username");
-            String enteredPasswordValue = intent.getStringExtra("enteredPassword");
-            String userEmailValue = intent.getStringExtra("userEmail");
+        String username = intent.getStringExtra("username");
+        String enteredPasswordValue = intent.getStringExtra("lozinka");
+        String userEmailValue = intent.getStringExtra("userEmail");
+        String urlSlike = intent.getStringExtra("urlSlike");
+        String ime = intent.getStringExtra("ime");
+        String prezime = intent.getStringExtra("prezime");
+        boolean verificiran = intent.getBooleanExtra("verificiran", false);
 
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-            EditText prikazUsername = findViewById(R.id.prikazUsername);
-            editPassword = findViewById(R.id.editPassword);
-            EditText editTextEmail = findViewById(R.id.editTextEmail);
+        EditText editTextIme = findViewById(R.id.editTextIme);
+        EditText editTextPrezime = findViewById(R.id.editTextPrezime);
+        EditText prikazUsername = findViewById(R.id.prikazUsername);
+        editPassword = findViewById(R.id.editPassword);
+        EditText editTextEmail = findViewById(R.id.editTextEmail);
+        EditText editTextVerificiran = findViewById(R.id.editTextVerificiran);
 
-            prikazUsername.setText(loggedInUsername);
-            editPassword.setText(enteredPasswordValue);
-            editTextEmail.setText(userEmailValue);
+        editTextIme.setText(ime);
+        editTextPrezime.setText(prezime);
+        prikazUsername.setText(username);
+        editPassword.setText(enteredPasswordValue);
+        editTextEmail.setText(userEmailValue);
+        editTextVerificiran.setText(verificiran ? "Verificiran" : "Nije Verificiran");
 
-            Button togglePasswordVisibilityButton = findViewById(R.id.togglePasswordVisibility);
-            togglePasswordVisibilityButton.setOnClickListener(view -> togglePasswordVisibility());
+        if (urlSlike != null && !urlSlike.isEmpty()) {
+            ImageView imageViewProfile = findViewById(R.id.imageViewProfile);
+            Glide.with(this).load(urlSlike).into(imageViewProfile);
         }
+
+        Button togglePasswordVisibilityButton = findViewById(R.id.togglePasswordVisibility);
+        togglePasswordVisibilityButton.setOnClickListener(view -> togglePasswordVisibility());
     }
 
     private void togglePasswordVisibility() {

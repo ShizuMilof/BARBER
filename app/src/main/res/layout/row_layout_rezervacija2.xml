@@ -5,16 +5,14 @@
     android:padding="16dp"
     android:background="@color/black">
 
-
-
     <TableRow>
         <TextView
             android:id="@+id/selectedDateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/white"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/formattedTerminTextView"
@@ -37,12 +35,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:textColor="@color/white"
-            android:text=""
-            android:layout_gravity="right" />
+            android:text="" />
 
-
-
+        <TextView
+            android:id="@+id/frizerTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="@color/white"
+            android:text="" />
     </TableRow>
-
 </TableLayout>

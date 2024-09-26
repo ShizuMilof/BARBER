@@ -1,6 +1,7 @@
 package com.example.barber;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,327 +21,304 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-	Button prijavaButton;
+	private Button prijavaButton;
+	private Button postavkeButton;
+	private Button rezervirajButton;
+	private Button adminButton;
+	private Button logoutButton;
+	private Button profilButton;
+	private Button terminiButton;
+	private Button terminifrizerButton;
 
-	Button postavkeButton;
-	Button rezervirajButton;
-	Button admin;
+	private Button terminifrizerButton2;
 
-	private String loggedInUsername;
+	private Button buttonListaRezervacija;
+	private Button buttonListaRezervacijafrizer;
+	private Button buttonListaRezervacijafrizer2;
 
-	private String loggedInUsernameUid;
-	private String loggedInUsernameEmail;
-
+	private AppCompatImageButton languageButton;
 
 	private BottomNavigationView bottomNavigationView;
-	Button logoutButton;
-	Button profilButton;
-
-	Button buttonListaRezervacija;
-
-	public DrawerLayout drawerLayout;
-	public ActionBarDrawerToggle actionBarDrawerToggle;
-	private String username;
-	private String userUid;
-	private String userEmail;
-	
-	
-	
-	
-	
+	private DrawerLayout drawerLayout;
+	private ActionBarDrawerToggle actionBarDrawerToggle;
+	private GoogleMap googleMap;
+	private Button buttonOpenQrScanner;
+	private String loggedInUsername;
+	private String loggedInUsernameUid;
+	private String loggedInUsernameEmail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
-		Button logoutButton = findViewById(R.id.logoutButton);
-		Button terminiButton = findViewById(R.id.terminiButton);
-		Button terminifrizerButton = findViewById(R.id.terminifrizerButton);
-		admin = findViewById(R.id.admin);
-		admin.setVisibility(View.GONE);
-
-		Button buttonListaRezervacija = findViewById(R.id.terminiButton);
-		Button buttonListaRezervacijafrizer = findViewById(R.id.terminifrizerButton);
-
-
-		terminiButton.setVisibility(View.GONE);
+		logoutButton = findViewById(R.id.logoutButton);
+		terminiButton = findViewById(R.id.terminiButton);
+		terminifrizerButton = findViewById(R.id.terminifrizerButton);
+		terminifrizerButton2 = findViewById(R.id.terminifrizerButton2);
+		adminButton = findViewById(R.id.admin);
+		buttonListaRezervacija = findViewById(R.id.terminiButton);
+		buttonListaRezervacijafrizer = findViewById(R.id.terminifrizerButton);
+		buttonListaRezervacijafrizer2 = findViewById(R.id.terminifrizerButton2);
 		postavkeButton = findViewById(R.id.PostavkeButton);
 		profilButton = findViewById(R.id.profilButton);
-		profilButton.setVisibility(View.GONE);
 		prijavaButton = findViewById(R.id.prijava);
 		rezervirajButton = findViewById(R.id.rezervirajButton);
-		rezervirajButton.setVisibility(View.GONE);
-		rezervirajButton.setEnabled(false);
-		logoutButton.setVisibility(View.GONE);
-		terminifrizerButton.setVisibility(View.GONE);
+		buttonOpenQrScanner = findViewById(R.id.buttonOpenQrScanner);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		checkLoginState();
+		buttonOpenQrScanner.setOnClickListener(v -> {
+			Intent intent = new Intent(MainActivity.this, QrCodeScannerActivity.class);
+			startActivity(intent);
+		});
+		// Get intent data
 		Intent intent = getIntent();
+		String email = intent.getStringExtra("email");
+		String password = intent.getStringExtra("lozinka");
+		String ime = intent.getStringExtra("ime");
+		String prezime = intent.getStringExtra("prezime");
+
+		String username = intent.getStringExtra("username");
+		String urlSlike = intent.getStringExtra("urlSlike");
+		int ulogaId = intent.getIntExtra("ulogeId", 0); // Default value is 1
+		boolean verificiran = intent.getBooleanExtra("verificiran", false); // Assuming verificiran is passed as a boolean
+		String enteredEmail = intent.getStringExtra("email");
 
 
-		String enteredEmail = intent.getStringExtra("userEmail");
-		String enteredPassword = intent.getStringExtra("enteredPassword");
+		// Display UI based on the role
+		displayUIBasedOnRole(ulogaId);
 
+		// Set onClick listeners for buttons
+		setButtonOnClickListeners(username, password, enteredEmail, urlSlike, ime, prezime, verificiran);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		if (intent != null && intent.hasExtra("userEmail")&& intent.hasExtra("userUid") ) {
-			loggedInUsernameEmail = intent.getStringExtra("userEmail");
-			loggedInUsernameUid = intent.getStringExtra("userUid");
-
-			DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(loggedInUsernameUid);
-			userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+		// Set touch listener for map fragment
+		if (mapFragment != null) {
+			mapFragment.getView().setOnTouchListener(new View.OnTouchListener() {
 				@Override
-				public void onDataChange(DataSnapshot dataSnapshot) {
-					if (dataSnapshot.exists()) {
-						loggedInUsername = dataSnapshot.child("username").getValue(String.class);
-			//			Toast.makeText(MainActivity.this, "Dobrodošli, " + loggedInUsername + "!", Toast.LENGTH_SHORT).show();
+				public boolean onTouch(View v, MotionEvent event) {
+					switch (event.getAction()) {
+						case MotionEvent.ACTION_DOWN:
+							v.getParent().requestDisallowInterceptTouchEvent(true);
+							break;
+						case MotionEvent.ACTION_UP:
+						case MotionEvent.ACTION_CANCEL:
+							v.getParent().requestDisallowInterceptTouchEvent(false);
+							break;
 					}
-				}
-
-				@Override
-				public void onCancelled(DatabaseError databaseError) {
-					Toast.makeText(MainActivity.this, "Error retrieving user data: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-				}
-				private void openYourActivity() {
-					// Ovdje otvorite željeni Activity, npr.:
-					Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-					startActivity(intent);
+					return false;
 				}
 			});
 
+			mapFragment.getMapAsync(this);
+		}
+
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-			if (loggedInUsernameEmail.contains("radnici")) {
 
-				admin = findViewById(R.id.admin);
-				admin.setVisibility(View.GONE);
+
+
+	}
+
+	private void logout() {
+		SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.clear(); // or editor.remove("isLoggedIn");
+		editor.apply();
+
+		// Redirect to the login activity
+		Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+		startActivity(intent);
+		finish();
+	}
+
+	@Override
+	public void onBackPressed() {
+		// Do nothing, or show a toast message
+		Toast.makeText(this, "BACK BUTTON JE ZABRANJEN, KORISTITE ODJAVI SE ", Toast.LENGTH_SHORT).show();
+	}
+
+
+
+	private void displayUIBasedOnRole(int ulogaId) {
+		switch (ulogaId) {
+			case 1:
+				adminButton.setVisibility(View.GONE);
 				terminifrizerButton.setVisibility(View.VISIBLE);
 				terminiButton.setVisibility(View.GONE);
 				rezervirajButton.setVisibility(View.GONE);
 				prijavaButton.setVisibility(View.GONE);
 				logoutButton.setVisibility(View.VISIBLE);
-
-
-
-			} else if ("admin@mail.com".equals(loggedInUsernameEmail)) {
-				// If the email is admin, perform actions for an admin user
-				admin = findViewById(R.id.admin);
-				admin.setVisibility(View.VISIBLE);
+				terminifrizerButton2.setVisibility(View.GONE);
+				postavkeButton.setVisibility(View.GONE);
+				buttonOpenQrScanner.setVisibility(View.VISIBLE);
+				break;
+			case 2:
+				adminButton.setVisibility(View.VISIBLE);
 				terminiButton.setVisibility(View.GONE);
+				terminifrizerButton.setVisibility(View.GONE);
+				terminifrizerButton2.setVisibility(View.VISIBLE);
+
 				rezervirajButton.setVisibility(View.GONE);
 				prijavaButton.setVisibility(View.GONE);
 				logoutButton.setVisibility(View.VISIBLE);
-
-			} else {
-				// Perform actions for a regular user
+				buttonOpenQrScanner.setVisibility(View.VISIBLE);
+				break;
+			case 3:
 				terminiButton.setVisibility(View.VISIBLE);
 				profilButton.setVisibility(View.VISIBLE);
 				rezervirajButton.setVisibility(View.VISIBLE);
 				rezervirajButton.setEnabled(true);
 				logoutButton.setVisibility(View.VISIBLE);
 				prijavaButton.setVisibility(View.GONE);
+				adminButton.setVisibility(View.GONE);
+				terminifrizerButton.setVisibility(View.GONE);
+				terminifrizerButton2.setVisibility(View.GONE);
+
+				buttonOpenQrScanner.setVisibility(View.GONE);
+
+
+
+
+				break;
+			default: // ulogaId 1 or any other value
+				terminiButton.setVisibility(View.VISIBLE);
+				profilButton.setVisibility(View.VISIBLE);
+				rezervirajButton.setVisibility(View.VISIBLE);
+				rezervirajButton.setEnabled(true);
+				logoutButton.setVisibility(View.VISIBLE);
+				prijavaButton.setVisibility(View.GONE);
+				adminButton.setVisibility(View.GONE);
+
 				prijavaButton.setEnabled(false);
-				AppCompatImageButton button = findViewById(R.id.button);
-				button.setVisibility(View.GONE);
-				button.setEnabled(false);
-			}
-		} else {
-
+				break;
 		}
-
-
-
-		profilButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(MainActivity.this, ProfilKorisnikaActivity.class);
-				intent.putExtra("username", loggedInUsername);
-				intent.putExtra("enteredPassword", enteredPassword);
-				intent.putExtra("userEmail", enteredEmail);
-				startActivity(intent);
-				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-			}
-		});
-
-
-
-
-		prijavaButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-
-				startActivityForResult(intent, 1);
-				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-			}
-		});
-
-
-		logoutButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				handleLogout();
-			}
-		});
-
-
-		postavkeButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(MainActivity.this, PostavkeAplikacijeActivity.class);
-
-				startActivityForResult(intent, 1);
-				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-			}
-		});
-
-
-
-		admin.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-				startActivityForResult(intent, 1);
-				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-			}
-		});
-
-
-
-		buttonListaRezervacija.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				Intent intent = new Intent(MainActivity.this, ListaRezerviranihUslugaActivity.class);
-
-				intent.putExtra("username", loggedInUsername);
-				startActivity(intent);
-			}
-		});
-
-
-
-		buttonListaRezervacijafrizer.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				Intent intent = new Intent(MainActivity.this, RadniciActivity2.class);
-
-				intent.putExtra("username", loggedInUsername);
-
-				startActivity(intent);
-			}
-		});
-
-
-
-
-
-         //da se mapa ne miče
-		mapFragment.getView().setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction()) {
-					case MotionEvent.ACTION_DOWN:
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-						break;
-					case MotionEvent.ACTION_UP:
-					case MotionEvent.ACTION_CANCEL:
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						break;
-				}
-
-
-
-
-				return false;
-			}
-		});
-
-
-
-
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-		AppCompatImageButton button = findViewById(R.id.button);
-
-		button.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				openLanguageSelectionActivity();
-			}
-		});
-
-		rezervirajButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-
-
-
-				openRadniciActivity();
-			}
-		});
-		mapFragment.getMapAsync(this);
-
-
-
-
 	}
 
+	private void setButtonOnClickListeners(String username, String password, String enteredEmail, String urlSlike,String ime, String prezime, boolean verificiran) {
+		profilButton.setOnClickListener(view -> {
+			Intent intent = new Intent(MainActivity.this, ProfilKorisnikaActivity.class);
+			intent.putExtra("username", username);
+			intent.putExtra("lozinka", password);
+			intent.putExtra("userEmail", enteredEmail);
+			intent.putExtra("urlSlike", urlSlike);
+			intent.putExtra("ime", ime);
+			intent.putExtra("prezime", prezime);
+			intent.putExtra("verificiran", verificiran);
+
+
+			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+		});
+
+		prijavaButton.setOnClickListener(view -> {
+			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+			startActivityForResult(intent, 1);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+		});
+
+		logoutButton.setOnClickListener(view -> handleLogout());
+
+		postavkeButton.setOnClickListener(view -> {
+			Intent intent = new Intent(MainActivity.this, PostavkeAplikacijeActivity.class);
+			startActivityForResult(intent, 1);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+		});
+
+		adminButton.setOnClickListener(view -> {
+			Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+			startActivityForResult(intent, 1);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+		});
+
+		buttonListaRezervacija.setOnClickListener(v -> {
+			Intent intent = new Intent(MainActivity.this, ListaRezerviranihUslugaActivity.class);
+			intent.putExtra("username", username); // Ensure this key matches
+			startActivity(intent);
+		});
+
+
+		buttonListaRezervacijafrizer.setOnClickListener(v -> {
+			Intent intent = new Intent(MainActivity.this, ListaRezerviranihUslugaActivity4.class);
+
+			intent.putExtra("ime", ime); // Ensure this key matches
+			intent.putExtra("prezime", prezime); // Ensure this key matches
+
+			intent.putExtra("username", username); // Ensure this key matches
+			startActivity(intent);
+		});
+
+
+		buttonListaRezervacijafrizer2.setOnClickListener(v -> {
+			Intent intent = new Intent(MainActivity.this, ListaRezerviranihUslugaActivity3.class);
+
+			intent.putExtra("ime", ime); // Ensure this key matches
+			intent.putExtra("prezime", prezime); // Ensure this key matches
+
+			intent.putExtra("username", username); // Ensure this key matches
+			startActivity(intent);
+		});
+
+
+		rezervirajButton.setOnClickListener(view -> {
+			if (verificiran) {
+				Intent intent = new Intent(MainActivity.this, RadniciActivity.class);
+				intent.putExtra("username", username); // Ensure this key is consistent
+				intent.putExtra("urlSlike", urlSlike); // Ensure this key is consistent
+
+				startActivity(intent);
+
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+			} else {
+				rezervirajButton.setText("račun nije verificiran");
+			}
+		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		checkLoginState();
+	}
+
+	private void checkLoginState() {
+		SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+		boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+		if (!isLoggedIn) {
+			// Redirect to the login activity
+			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+			startActivity(intent);
+			finish();
+		}
+	}
 
 	private void handleLogout() {
-		// Perform any logout-related tasks here
-
-
-		Intent intent = new Intent(MainActivity.this, MainActivity.class);
-		startActivity(intent);
-		finish();
+		logout();
 	}
 
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
-
 		LatLng location = new LatLng(45.83325561013758, 17.388860417173003);
 		googleMap.addMarker(new MarkerOptions().position(location).title("Frizerski salon Boris"));
 		googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-	}
-
-	private void openRadniciActivity() {
-		Intent intent = new Intent(this, RadniciActivity.class);
-
-
-		intent.putExtra("username", loggedInUsername);
-
-		startActivity(intent);
-		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-	}
-
-	private void openLanguageSelectionActivity() {
-		Intent intent = new Intent(this, LanguageActivity.class);
-		startActivity(intent);
-		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 	}
 }

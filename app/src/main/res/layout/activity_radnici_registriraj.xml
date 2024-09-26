@@ -1,4 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,26 +22,86 @@
         android:id="@+id/editTextImeRadnik"
         android:layout_width="220dp"
         android:layout_height="50dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:gravity="center"
+        android:hint="Unesite ime"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewBackground" />
+
+    <EditText
+        android:id="@+id/editTextPrezimeRadnik"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:gravity="center"
+        android:hint="Unesite prezime"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextImeRadnik" />
+
+    <EditText
+        android:id="@+id/editTextUsernameRadnik"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_edittext_background"
         android:gravity="center"
         android:hint="Unesite korisničko ime"
         android:inputType="text"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageViewBackground" />
+        app:layout_constraintTop_toBottomOf="@id/editTextPrezimeRadnik" />
+
+    <EditText
+        android:id="@+id/editTextEmailRadnik"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:gravity="center"
+        android:hint="Unesite e-mail adresu"
+        android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextUsernameRadnik" />
+
+    <EditText
+        android:id="@+id/editTextPasswordRadnik"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:gravity="center"
+        android:hint="Unesite lozinku"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextEmailRadnik" />
 
     <ImageView
         android:id="@+id/imagePreview"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="32dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextImeRadnik"
+        app:layout_constraintTop_toBottomOf="@id/editTextPasswordRadnik"
         tools:srcCompat="@drawable/barber1"
         tools:visibility="visible" />
 
@@ -48,36 +109,35 @@
         android:id="@+id/buttonChooseImage"
         android:layout_width="220dp"
         android:layout_height="60dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="16dp"
         android:onClick="chooseImage"
         android:text="Odaberi sliku iz galerije"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePreview" />
+        app:layout_constraintTop_toBottomOf="@id/imagePreview" />
 
     <Button
         android:id="@+id/btnCapture"
         android:layout_width="220dp"
         android:layout_height="60dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:onClick="captureImage"
         android:text="KORISTI KAMERU ZA SLIKU"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonChooseImage" />
+        app:layout_constraintTop_toBottomOf="@id/buttonChooseImage" />
 
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="220dp"
         android:layout_height="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button"
         android:text="Registriraj radnika"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnCapture"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/btnCapture" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

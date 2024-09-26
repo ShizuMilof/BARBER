@@ -1,115 +1,140 @@
 package com.example.barber;
 
+import android.app.Dialog;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.barber.model.RezerviraniTerminModel;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import androidx.annotation.NonNull;
 
+import com.example.barber.model.Appointment;
+
+import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
-// CustomAdapter2.java
-public class CustomAdapter2 extends ArrayAdapter<RezerviraniTerminModel> {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class CustomAdapter2 extends ArrayAdapter<Appointment> {
     private final Context context;
-    private final ArrayList<RezerviraniTerminModel> rezervacijeList;
+    private final ArrayList<Appointment> rezervacijeList;
+    private final ApiService apiService;
 
-    public CustomAdapter2(Context context, ArrayList<RezerviraniTerminModel> rezervacijeList) {
-        super(context, R.layout.row_layout_rezervacija, rezervacijeList);
+    public CustomAdapter2(Context context, ArrayList<Appointment> rezervacijeList, ApiService apiService) {
+        super(context, R.layout.row_layout_rezervacija3, rezervacijeList);
         this.context = context;
         this.rezervacijeList = rezervacijeList;
+        this.apiService = apiService;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.row_layout_rezervacija, parent, false);
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+        ViewHolder holder;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.row_layout_rezervacija3, parent, false);
+            holder = new ViewHolder();
+            holder.selectedDateTextView = convertView.findViewById(R.id.selectedDateTextView);
+            holder.formattedTerminTextView = convertView.findViewById(R.id.formattedTerminTextView);
+            holder.imeUslugeTextView = convertView.findViewById(R.id.imeUslugeTextView);
+            holder.usernameTextView = convertView.findViewById(R.id.usernameTextView);
+            holder.approveButton = convertView.findViewById(R.id.approveButton);
+            holder.cancelButton = convertView.findViewById(R.id.approveButton);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
-        TextView selectedDateTextView = rowView.findViewById(R.id.selectedDateTextView);
-        TextView formattedTerminTextView = rowView.findViewById(R.id.formattedTerminTextView);
-        Button deleteButton = rowView.findViewById(R.id.deleteButton);
+        Appointment rezervacija = rezervacijeList.get(position);
 
-        TextView imeUslugeTextView = rowView.findViewById(R.id.imeUslugeTextView);
-        TextView usernameTextView = rowView.findViewById(R.id.usernameTextView);
+        // Parse and format the date
+        String inputPattern = "yyyy-MM-dd'T'HH:mm:ss";
+        String outputPattern = "dd.MM.yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern, Locale.getDefault());
 
-        RezerviraniTerminModel rezervacija = rezervacijeList.get(position);
-
-        // Format the date
-        SimpleDateFormat inputFormat = new SimpleDateFormat("dd_MM_yyyy");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("dd.MM.yyyy");
         try {
-            Date date = inputFormat.parse(rezervacija.getSelectedDate());
+            Date date = inputFormat.parse(rezervacija.getDatum());
             String formattedDate = outputFormat.format(date);
-            selectedDateTextView.setText(formattedDate);
+            holder.selectedDateTextView.setText(formattedDate);
         } catch (ParseException e) {
             e.printStackTrace();
+            holder.selectedDateTextView.setText(rezervacija.getDatum()); // Fallback to original date string in case of error
         }
 
-        formattedTerminTextView.setText(rezervacija.getSelectedTermin());
-        imeUslugeTextView.setText("   " + rezervacija.getImeUsluge());
-        usernameTextView.setText("   " + rezervacija.getloggedInUsername());
+        holder.formattedTerminTextView.setText(rezervacija.getTrajanjeUsluge());
+        holder.imeUslugeTextView.setText(rezervacija.getUsluge());
+        holder.usernameTextView.setText(rezervacija.getFrizer());
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get the clicked item
-                RezerviraniTerminModel selectedItem = getItem(position);
-                // Display "ime" and "prezime" in a toast
-                String imePrezime = selectedItem.getIme();
+        // Set click listener for the cancel button
+        holder.approveButton.setOnClickListener(v -> {
+            apiService.cancelAppointment(rezervacija.getId()).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(context, "OTKAZAN TERMIN", Toast.LENGTH_SHORT).show();
+                        rezervacijeList.remove(position);
+                        notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(context, "Failed to cancel appointment", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-                // Call a method to delete the item from the database
-                deleteItemFromDatabase(selectedItem);
-
-                // Remove the item from the list and notify the adapter
-                rezervacijeList.remove(selectedItem);
-                notifyDataSetChanged();
-            }
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(context, "API call failed", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
-        return rowView;
+        // Set click listener for the list item
+        convertView.setOnClickListener(v -> {
+            // Create a dialog to show the QR code
+            Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.dialog_enlarged_image);
+            ImageView enlargedImageView = dialog.findViewById(R.id.enlargedImageView);
+
+            // Load the image from the URL
+            new Thread(() -> {
+                try {
+                    URL url = new URL(rezervacija.getUrlSlike());
+                    Bitmap bitmap = BitmapFactory.decodeStream(url.openStream());
+                    new Handler(Looper.getMainLooper()).post(() -> enlargedImageView.setImageBitmap(bitmap));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    new Handler(Looper.getMainLooper()).post(() ->
+                            Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show());
+                }
+            }).start();
+
+            dialog.show();
+        });
+
+        return convertView;
     }
 
-    private void deleteItemFromDatabase(RezerviraniTerminModel item) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("termini");
-
-        // Get the key of the item to be deleted
-        String itemKey = generateTerminKey(item);
-
-        if (itemKey != null && !itemKey.isEmpty()) {
-            Toast.makeText(context, "Deleting item with key: " + itemKey, Toast.LENGTH_SHORT).show();
-            DatabaseReference itemReference = databaseReference.child(itemKey);
-            itemReference.removeValue();
-        } else {
-            // Handle the case when the key is null or empty
-        }
+    static class ViewHolder {
+        TextView selectedDateTextView;
+        TextView formattedTerminTextView;
+        TextView imeUslugeTextView;
+        TextView usernameTextView;
+        Button approveButton;
+        Button cancelButton;
     }
-
-    // Function to generate a key based on the item's properties
-    private String generateTerminKey(RezerviraniTerminModel item) {
-        String key = String.format("korisnik:%s_frizer:%s_termin:%s__%s",
-                item.getloggedInUsername(), item.getIme(), item.getSelectedTermin(), item.getSelectedDate());
-
-        // Log the key and other values
-        Log.d("KeyGeneration", "Key: " + key +
-                ", Username: " + item.getloggedInUsername() +
-                ", ImePrezime: " + item.getIme() +
-                ", SelectedTermin: " + item.getSelectedTermin() +
-                ", SelectedDate: " + item.getSelectedDate());
-
-        return key;
-    }
-
 }

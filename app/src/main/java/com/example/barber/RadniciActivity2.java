@@ -69,9 +69,9 @@ public class RadniciActivity2 extends AppCompatActivity {
                     Radnik selectedRadnik = list.get(position);
 
 
-                    Intent intent = new Intent(RadniciActivity2.this, ListaRezerviranihUslugaActivity2.class);
+                    Intent intent = new Intent(RadniciActivity2.this, ListaRezerviranihUslugaActivity4.class);
 
-                    intent.putExtra("ime", selectedRadnik.getImePrezime());
+                    intent.putExtra("ime", selectedRadnik.getIme());
 
 
 
@@ -89,7 +89,7 @@ public class RadniciActivity2 extends AppCompatActivity {
                         list.add(radnik);
                         originalList.add(radnik); // Dodajte radnika u originalList
                         adapter.notifyDataSetChanged();
-                        Log.d("DataDebug", "Radnik dodan: " + radnik.getImePrezime() );
+                        Log.d("DataDebug", "Radnik dodan: " + radnik.getIme() );
                     }
                 }
 

@@ -82,7 +82,7 @@ public class BrisanjeRadnikaActivity extends Activity {
                 // Koristi AlertDialog za potvrdu brisanja
                 AlertDialog.Builder builder = new AlertDialog.Builder(BrisanjeRadnikaActivity.this);
                 builder.setTitle("Potvrda brisanja");
-                builder.setMessage("Jeste li sigurni da želite obrisati " + selectedRadnik.getImePrezime() + "?");
+                builder.setMessage("Jeste li sigurni da želite obrisati " + selectedRadnik.getIme() + "?");
 
                 builder.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
@@ -91,7 +91,7 @@ public class BrisanjeRadnikaActivity extends Activity {
                         DatabaseReference uslugeReference = FirebaseDatabase.getInstance().getReference().child("radnici");
 
                         // Pronađi ključ odabrane usluge u bazi podataka
-                        String selectedRadnikKey = selectedRadnik.getImePrezime();
+                        String selectedRadnikKey = selectedRadnik.getIme();
 
                         uslugeReference.child(selectedRadnikKey).removeValue();
                         list1.remove(position);

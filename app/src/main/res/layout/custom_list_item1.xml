@@ -1,4 +1,3 @@
-<!-- res/layout/custom_list_item.xml -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -6,33 +5,58 @@
     android:padding="10dp"
     android:background="@drawable/custom_border"
     android:layout_marginBottom="10dp">
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="9dp"
+        android:button="@drawable/custom_checkbox"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/checkBox"
         android:src="@drawable/avatar"
         android:scaleType="centerCrop"
-        android:layout_alignParentStart="true"/>
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@android:id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:layout_toEndOf="@+id/profileImageView"
+        android:layout_toEndOf="@id/profileImageView"
         android:layout_marginStart="10dp"
         android:textSize="28sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/durationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_toEndOf="@android:id/text1"
+        android:layout_marginStart="10dp"
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@android:id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:layout_alignParentEnd="true"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:layout_marginRight="10dp"/>
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"/>
+
 </RelativeLayout>

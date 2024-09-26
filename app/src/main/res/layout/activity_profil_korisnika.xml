@@ -1,30 +1,43 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:fitsSystemWindows="true"
+    tools:context=".ProfilKorisnikaActivity">
+
+
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
     android:fitsSystemWindows="true"
-    tools:context=".RadniciActivity">
+    tools:context=".ProfilKorisnikaActivity">
 
     <ImageView
         android:id="@+id/imageViewBackground"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="733dp"
+        android:layout_height="296dp"
+        android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/pocetna"
-        app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:padding="16dp"
         android:text="KORISNIČKI PODATCI"
@@ -32,95 +45,188 @@
         android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/imageViewBackground"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/imeTextView"
-        android:layout_width="159dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="320dp"
-        android:layout_marginTop="40dp"
-        android:text="         Ime i prezime:"
+        android:id="@+id/textViewIme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="IME"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-
     <EditText
-        android:id="@+id/prikazUsername"
-        android:layout_width="200dp"
+        android:id="@+id/editTextIme"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_edittext_background"
         android:enabled="false"
         android:gravity="center"
         android:inputType="text"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imeTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewIme"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/prezimeTextView"
-        android:layout_width="159dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="320dp"
-        android:layout_marginTop="56dp"
-        android:text="          Email adresa:"
+        android:id="@+id/textViewPrezime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="PREZIME"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextIme" />
+
+    <EditText
+        android:id="@+id/editTextPrezime"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:enabled="false"
+        android:gravity="center"
+        android:inputType="text"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrezime"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="KORISNIČKO IME"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPrezime" />
+
+    <EditText
+        android:id="@+id/prikazUsername"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:enabled="false"
+        android:gravity="center"
+        android:inputType="text"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUsername"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="EMAIL ADRESA"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prikazUsername" />
 
     <EditText
         android:id="@+id/editTextEmail"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_edittext_background"
         android:enabled="false"
         android:gravity="center"
         android:inputType="textEmailAddress"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prezimeTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewEmail"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/prezimeTextView2"
-        android:layout_width="159dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="320dp"
-        android:layout_marginTop="56dp"
-        android:text="               Lozinka:"
+        android:id="@+id/textViewLozinka"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="LOZINKA"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
     <EditText
         android:id="@+id/editPassword"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_edittext_background"
         android:enabled="false"
         android:gravity="center"
         android:inputType="textPassword"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prezimeTextView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewLozinka"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewVerificiran"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="VERIFICIRAN"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPassword" />
+
+    <EditText
+        android:id="@+id/editTextVerificiran"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:enabled="false"
+        android:gravity="center"
+        android:inputType="text"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewVerificiran"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/togglePasswordVisibility"
-        android:layout_width="160dp"
-        android:layout_height="29dp"
-        android:layout_below="@id/editPassword"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_edittext_background"
-        android:text="PRIKAŽI/SAKRIJ"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="PRIKAŽI/SAKRIJ LOZINKU"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPassword"
-        app:layout_constraintVertical_bias="0.096" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextVerificiran"/>
 
+
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@+id/togglePasswordVisibility"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

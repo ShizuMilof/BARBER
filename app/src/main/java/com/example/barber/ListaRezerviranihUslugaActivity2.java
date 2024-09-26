@@ -1,101 +1,94 @@
 package com.example.barber;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.barber.model.RezerviraniTerminModel;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.barber.model.Appointment;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ListaRezerviranihUslugaActivity2 extends Activity {
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+public class ListaRezerviranihUslugaActivity2 extends AppCompatActivity {
     private ListView listView;
-    private ArrayList<RezerviraniTerminModel> listaRezervacija = new ArrayList<>();
+    private ArrayList<Appointment> listaRezervacija = new ArrayList<>();
+    private CustomAdapter3 adapter;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_rezerviranih_usluga);
-        Button nazadButton = findViewById(R.id.nazad);
-        nazadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to MainActivity
-                Intent intent = new Intent(ListaRezerviranihUslugaActivity2.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+        setContentView(R.layout.activity_lista_rezerviranih_usluga2);
+
+        OkHttpClient client = UnsafeOkHttpClient.getUnsafeOkHttpClient();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://172.20.10.3:7194/") // Osigurajte da je URL ispravan
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        apiService = retrofit.create(ApiService.class);
+
 
         listView = findViewById(R.id.listViewRezervacije);
-
-        CustomAdapter3 adapter = new CustomAdapter3(this, listaRezervacija);
+        adapter = new CustomAdapter3(this, listaRezervacija, apiService);
         listView.setAdapter(adapter);
 
-
         Intent intent = getIntent();
-        if (intent != null) {
-            String loggedInUsername;
-            String ime = intent.getStringExtra("ime");
+        String ime = intent.getStringExtra("ime");
+        String prezime = intent.getStringExtra("prezime");
+        Log.d("LISTAREZERVIRANIHUSLUGAACTIVITY2   ", "USERNAME JE: "  + prezime);
 
-            loggedInUsername = ime ;
-
-
-            DatabaseReference rezervacijeReference = FirebaseDatabase.getInstance().getReference().child("termini");
-            rezervacijeReference.orderByChild("ime").equalTo(loggedInUsername).addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
-                    RezerviraniTerminModel rezervacija = dataSnapshot.getValue(RezerviraniTerminModel.class);
-                    if (rezervacija != null) {
-                        rezervacija.setKey(dataSnapshot.getKey());
-                        listaRezervacija.add(rezervacija);
-                        adapter.notifyDataSetChanged();
-                    }
-                }
-
-
-
-
-
-
-                @Override
-                public void onChildChanged(@androidx.annotation.NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@androidx.annotation.NonNull DataSnapshot snapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@androidx.annotation.NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                }
-
-                @Override
-                public void onCancelled(@androidx.annotation.NonNull DatabaseError error) {
-                    Log.e("MyApp", "Error: " + error.getMessage());
-                }
-
-                // Implement other ChildEventListener methods as needed
-            });
-        }
-
-
-
-
-
+        if (ime != null && prezime != null) {
+            String frizerIme = ime + " " + prezime;
+            fetchAppointments(frizerIme);
+        } else {
+            // Handle the case where ime or prezime is null if necessary
         }
     }
+
+    public void fetchAppointments(String frizerIme) {
+        apiService.getAppointmentsByFrizer(frizerIme).enqueue(new Callback<List<Appointment>>() {
+            @Override
+            public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Appointment> appointments = response.body();
+                    listaRezervacija.clear();
+
+                    // Filter appointments where JeOdraden is false
+                    for (Appointment appointment : appointments) {
+                        if (!appointment.isJeOdraden()) {
+                            listaRezervacija.add(appointment);
+                        }
+                    }
+
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(ListaRezerviranihUslugaActivity2.this, "Failed to fetch appointments", Toast.LENGTH_SHORT).show();
+                    Log.e("API", "Response error: " + response.code() + ", " + response.message());
+                    try {
+                        Log.e("API", "Response body: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        Log.e("API", "Error reading response body", e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Appointment>> call, Throwable t) {
+                Toast.makeText(ListaRezerviranihUslugaActivity2.this, "API call failed", Toast.LENGTH_SHORT).show();
+                Log.e("API", "Failure: " + t.getMessage());
+            }
+        });
+    }
+}

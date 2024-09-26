@@ -38,8 +38,6 @@ public class BrisanjeUslugaActivity extends Activity {
         ArrayList<Usluge> list1 = new ArrayList<>();
 
 
-        CustomAdapter1 adapter = new CustomAdapter1(this, list1);
-        listView.setAdapter(adapter);
 
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("frizerskeusluge");
@@ -49,7 +47,7 @@ public class BrisanjeUslugaActivity extends Activity {
                 Usluge usluge = dataSnapshot.getValue(Usluge.class);
                 if (usluge != null) {
                     list1.add(usluge);
-                    adapter.notifyDataSetChanged();
+
                 }
             }
 
@@ -82,7 +80,7 @@ public class BrisanjeUslugaActivity extends Activity {
                 // Koristi AlertDialog za potvrdu brisanja
                 AlertDialog.Builder builder = new AlertDialog.Builder(BrisanjeUslugaActivity.this);
                 builder.setTitle("Potvrda brisanja");
-                builder.setMessage("Jeste li sigurni da želite obrisati " + selectedUsluga.getImeUsluge() + "?");
+                builder.setMessage("Jeste li sigurni da želite obrisati " + selectedUsluga.getNaziv() + "?");
 
                 builder.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
@@ -91,14 +89,14 @@ public class BrisanjeUslugaActivity extends Activity {
                         DatabaseReference uslugeReference = FirebaseDatabase.getInstance().getReference().child("frizerskeusluge");
 
                         // Pronađi ključ odabrane usluge u bazi podataka
-                        String selectedUslugaKey = selectedUsluga.getImeUsluge();
+                        String selectedUslugaKey = selectedUsluga.getNaziv();
 
                         // Briši odabrani element iz baze podataka
                         uslugeReference.child(selectedUslugaKey).removeValue();
 
                         // Osvježi listu nakon brisanja
                         list1.remove(position);
-                        adapter.notifyDataSetChanged();
+
                     }
                 });
 

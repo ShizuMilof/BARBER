@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTintMode="src_over">
+    android:backgroundTintMode="src_over"
+    android:background="#000000">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,86 +13,100 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageViewBackground"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/pocetna" />
 
         </FrameLayout>
 
-
         <!-- Registration Section -->
-
-
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="678dp"
+            android:layout_height="wrap_content"
             android:background="#000000">
-
 
             <EditText
                 android:id="@+id/editTextEmail"
-                android:layout_width="252dp"
-                android:layout_height="71dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="257dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="288dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
                 android:background="@drawable/rounded_edittext_background"
                 android:gravity="center"
                 android:hint="Unesite e-mail"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/colorBlack" />
+                android:padding="16dp"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.8" />
 
             <EditText
                 android:id="@+id/editTextPassword"
-                android:layout_width="249dp"
-                android:layout_height="62dp"
-                android:layout_below="@+id/editTextEmail"
-                android:layout_alignEnd="@+id/editTextEmail"
-                android:layout_marginTop="68dp"
-                android:layout_marginEnd="3dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
                 android:background="@drawable/rounded_edittext_background"
                 android:gravity="center"
                 android:hint="Unesite lozinku"
                 android:inputType="textPassword"
-                android:textColor="@color/colorBlack" />
+                android:padding="16dp"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
+                app:layout_constraintWidth_percent="0.8" />
 
             <Button
                 android:id="@+id/buttonLogin"
-                android:layout_width="249dp"
-                android:layout_height="78dp"
-                android:layout_below="@id/editTextPassword"
-                android:layout_alignEnd="@+id/editTextPassword"
-                android:layout_marginTop="70dp"
-                android:layout_marginEnd="0dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
                 android:background="@drawable/rounded_button"
-                android:text="Prijavi se" />
+                android:padding="16dp"
+                android:text="Prijavi se"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+                app:layout_constraintWidth_percent="0.8" />
 
             <Button
                 android:id="@+id/btnOpenRegisterActivity"
-                android:layout_width="198dp"
-                android:layout_height="120dp"
-                android:layout_below="@+id/buttonLogin"
-                android:layout_alignStart="@+id/buttonLogin"
-
-                android:layout_alignEnd="@+id/buttonLogin"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="41dp"
-                android:layout_marginEnd="-2dp"
-                android:background="@drawable/black_button_background"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
                 android:text="Nemate račun?"
                 android:textColor="#FFFFFF"
-                app:cornerRadius="9dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+                app:layout_constraintWidth_percent="0.8"
+                android:layout_marginTop="16dp"
+                android:padding="16dp" />
 
 
-        </RelativeLayout>
+            <Button
+                android:id="@+id/buttonOpenQrScanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnOpenRegisterActivity"
+                android:layout_marginBottom="32dp"
+                android:text="OTVORI QR SKENER"
+                app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvImePrezime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvRezerviraniTermini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rezervirani termini: "/>
+
+    <TextView
+        android:id="@+id/tvOtkazaniTermini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Otkazani termini: "/>
+
+    <TextView
+        android:id="@+id/tvOdradjeniTermini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Odrađeni termini: "/>
+
+    <TextView
+        android:id="@+id/tvUkupnoVrijemeRada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ukupno vrijeme rada: "/>
+
+</LinearLayout>

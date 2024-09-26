@@ -3,8 +3,9 @@
 package com.example.barber;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,9 +67,9 @@ public class CustomAdapter extends BaseAdapter {
             TextView textView = convertView.findViewById(android.R.id.text1);
             ImageView imageView = convertView.findViewById(R.id.profileImageView);
 
-            textView.setText(radnik.getImePrezime() );
+            textView.setText(radnik.getIme() );
 
-            String imageUrl = radnik.getProfileImageUrl();
+            String imageUrl = radnik.getIme();
             Log.d("PicassoDebug", "Image URL: " + imageUrl);
 
             if (imageUrl != null) {

@@ -1,82 +1,94 @@
 package com.example.barber;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-
-import androidx.annotation.NonNull;
-
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.barber.model.Usluge;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
+import java.security.cert.CertificateException;
 import java.util.ArrayList;
+import java.util.List;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class FrizerskeUslugeActivity extends Activity {
-    private FirebaseAuth mAuth;
-    private ListView listView;
-
-    private EditText editTextSearchUsluge;
-
-    private final ArrayList<Usluge> filteredList = new ArrayList<>();
-    private final ArrayList<Usluge> originalList = new ArrayList<>();
-
-
-    private void filterUslugeList(String searchText) {
-        Log.d("FilterDebug", "Filtering Usluge with: " + searchText);
-
-        filteredList.clear();
-        for (Usluge usluge : originalList) {
-            if (usluge.getImeUsluge().toLowerCase().contains(searchText.toLowerCase())) {
-                filteredList.add(usluge);
-                Log.d("FilterDebug", "Match found: " + usluge.getImeUsluge());
-            }
-        }
-
-        ((CustomAdapter1) listView.getAdapter()).updateList(filteredList);
-    }
-
+public class FrizerskeUslugeActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private CustomAdapter1 adapter;
+    private String username;
+    private OkHttpClient okHttpClient;
+    private List<Usluge> usluge; // Define a list of services
+    private List<Usluge> selectedServices; // Define a list to store selected services
+    private EditText editTextSearchUsluge; // Add search EditText
+    private List<Usluge> filteredList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_frizerske_usluge);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_frizerske_usluge); // Ispravljeno ime layouta
 
-        listView = findViewById(R.id.listView);
-        editTextSearchUsluge = findViewById(R.id.editTextSearchUsluge);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        int spaceHeight = getResources().getDimensionPixelSize(R.dimen.space_height);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spaceHeight));
 
-        Intent intent = getIntent();
-        String imePrezime = getIntent().getStringExtra("imePrezime");
+        editTextSearchUsluge = findViewById(R.id.editTextSearchUsluge); // Initialize search EditText
 
-        String loggedInUsername = intent.getStringExtra("username");
+        String username = getIntent().getStringExtra("username");
+        String frizer_ime = getIntent().getStringExtra("frizer_ime");
 
+        usluge = new ArrayList<>();
+        selectedServices = new ArrayList<>();
 
+        // Initialize adapter
+        adapter = new CustomAdapter1(usluge);
+        recyclerView.setAdapter(adapter);
 
+        // Initialize unsafe HTTP client
+        initializeUnsafeHttpClient();
 
+        // Fetch items from API
+        fetchItems();
 
-        ArrayList<Usluge> list1 = new ArrayList<>();
-        CustomAdapter1 adapter = new CustomAdapter1(this, list1);
-        listView.setAdapter(adapter);
+        // Set up next button click listener
+        Button nextButton = findViewById(R.id.nextButton);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Usluge> selectedServices = adapter.getSelectedServices();
+                if (selectedServices.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "MORATE ODABRATI NAJMANJE 1 USLUGU", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Proceed with these selected services
+                    Intent intent = new Intent(FrizerskeUslugeActivity.this, VrijemeDatumUslugeActivity.class);
+                    intent.putParcelableArrayListExtra("selectedServices", new ArrayList<Parcelable>(selectedServices));
+                    intent.putExtra("username", username); // Pass the username
+                    intent.putExtra("frizer_ime", frizer_ime); // Pass the frizer_ime
+                    startActivity(intent);
+                }
+            }
+        });
 
-
-
+        // Set up search functionality
         editTextSearchUsluge.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -84,81 +96,77 @@ public class FrizerskeUslugeActivity extends Activity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-            }
+            public void afterTextChanged(Editable editable) {}
         });
+    }
 
+    private void initializeUnsafeHttpClient() {
+        final TrustManager[] trustAllCerts = new TrustManager[]{
+                new X509TrustManager() {
+                    @Override
+                    public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException { }
 
+                    @Override
+                    public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException { }
 
+                    @Override
+                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                        return new java.security.cert.X509Certificate[]{};
+                    }
+                }
+        };
 
+        try {
+            final SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
+            okHttpClient = new OkHttpClient.Builder()
+                    .sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0])
+                    .hostnameVerifier((hostname, session) -> true)
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    private void fetchItems() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://172.20.10.3:7194/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
 
+        MyApi2 apiService = retrofit.create(MyApi2.class);
+        Call<List<Usluge>> call = apiService.getYourData();  // Ispravljeno na Usluge
 
-
-
-
-
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("frizerskeusluge");
-        reference.addChildEventListener(new ChildEventListener() {
+        call.enqueue(new Callback<List<Usluge>>() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
-                Usluge usluge = dataSnapshot.getValue(Usluge.class);
-                if (usluge != null) {
-                    list1.add(usluge);
-                    originalList.add(usluge);
-                    adapter.notifyDataSetChanged();
-                    Log.d("DataDebug", "Usluge dodane: " + usluge.getImeUsluge() + " - Size: " + list1.size());
+            public void onResponse(Call<List<Usluge>> call, Response<List<Usluge>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    usluge = response.body();
+                    filteredList.clear();
+                    filteredList.addAll(usluge); // Initially, filtered list is the same as the original list
+                    adapter.updateData(filteredList); // Update adapter with the filtered list
+                } else {
+                    Log.e("FrizerskeUsluge", "Error fetching data");
                 }
             }
 
-
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onFailure(Call<List<Usluge>> call, Throwable t) {
+                Log.e("FrizerskeUsluge", "Error fetching usluge data: " + t.getMessage(), t);
             }
         });
-
-
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Handle item click here, for example, start a new activity
-                Usluge selectedUsluge = list1.get(position);
-
-                // Pass selectedUsluge data to the next activity
-                Intent intent = new Intent(FrizerskeUslugeActivity.this, VrijemeDatumUslugeActivity.class);
-                intent.putExtra("imeUsluge", selectedUsluge.getImeUsluge());
-                intent.putExtra("cijenaUsluge", selectedUsluge.getCijenaUsluge());
-                intent.putExtra("trajanjeUsluge", selectedUsluge.getTrajanjeUsluge());
-                intent.putExtra("profileImageUrl", selectedUsluge.getProfileImageUrl());
-                intent.putExtra("imePrezime", imePrezime);
-                intent.putExtra("username", loggedInUsername);
-                startActivity(intent);
-            }
-        });
-
-
-
-
-
     }
 
-
-
+    private void filterUslugeList(String searchText) {
+        filteredList.clear();
+        for (Usluge usluge : usluge) {
+            if (usluge.getNaziv().toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(usluge);
+            }
+        }
+        adapter.updateData(filteredList); // Update adapter with the filtered list
+    }
 }

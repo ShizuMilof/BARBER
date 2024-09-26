@@ -1,42 +1,99 @@
 package com.example.barber.model;
 
-public class Usluge {
-    private String imeUsluge;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private String cijenaUsluge;
+public class Usluge implements Parcelable {
+    private String naziv;
+    private String cijena;
+    private String trajanje;
+    private boolean isSelected;
+    private String urlSlike;
 
-    private String trajanjeUsluge;
-
-    private String profileImageUrl;
-
-
-    public Usluge() {
-
+    // Constructor
+    public Usluge(String naziv, String cijena, boolean isSelected, String imageUrl, String trajanje) {
+        this.naziv = naziv;
+        this.cijena = cijena;
+        this.isSelected = isSelected;
+        this.urlSlike = imageUrl;
+        this.trajanje = trajanje;
     }
 
-    public Usluge(String imeUsluge,String cijenaUsluge,String trajanjeUsluge,String profileImageUrl) {
-
-      this.imeUsluge = imeUsluge;
-      this.cijenaUsluge = cijenaUsluge;
-      this.trajanjeUsluge = trajanjeUsluge;
-      this.profileImageUrl=profileImageUrl;
-
+    // Protected constructor that reads from a Parcel
+    protected Usluge(Parcel in) {
+        naziv = in.readString();
+        cijena = in.readString();
+        isSelected = in.readByte() != 0;  // isSelected will be true if byte != 0
+        urlSlike = in.readString();
+        trajanje = in.readString(); // Read trajanje from the Parcel
     }
 
-    public String getCijenaUsluge() {
-        return cijenaUsluge;
+    // Parcelable.Creator
+    public static final Creator<Usluge> CREATOR = new Creator<Usluge>() {
+        @Override
+        public Usluge createFromParcel(Parcel in) {
+            return new Usluge(in);
+        }
+
+        @Override
+        public Usluge[] newArray(int size) {
+            return new Usluge[size];
+        }
+    };
+
+    // Implementing Parcelable interface methods
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public String getProfileImageUrl() {
-      return profileImageUrl;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(naziv);
+        dest.writeString(cijena);
+        dest.writeByte((byte) (isSelected ? 1 : 0));  // Write isSelected as a byte
+        dest.writeString(urlSlike);
+        dest.writeString(trajanje); // Ensure trajanje is written to the Parcel
     }
 
-    public String getImeUsluge() {
-        return imeUsluge;
+    // Getter and setter methods
+    public String getNaziv() {
+        return naziv;
     }
 
-    public String getTrajanjeUsluge() {
-        return trajanjeUsluge;
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
+    public String getCijena() {
+        return cijena;
+    }
+
+    public void setCijena(String cijena) {
+        this.cijena = cijena;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public String getSlika() {
+        return urlSlike;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.urlSlike = imageUrl;
+    }
+
+    public String getTrajanje() {
+        return trajanje;
+    }
+
+    public void setTrajanje(String trajanje) {
+        this.trajanje = trajanje;
+    }
 }
